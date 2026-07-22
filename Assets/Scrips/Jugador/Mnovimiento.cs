@@ -1,67 +1,85 @@
 using UnityEngine;
+using UnityEngine.InputSystem; // Necesario para InputValue
 
-public class Mnovimiento : MonoBehaviour
+public class Movimiento2D : MonoBehaviour
 {
-    public float velocidad = 5f;
-    public float fuerzaSalto = 8f;
-    [SerializeField]
-    private Rigidbody2D rb;
-    [SerializeField]
-    private Vector2 movimiento;
-    [SerializeField]
+    private Rigidbody2D rb2D;
+    private Vector2 direccion;
     private bool mirandoDerecha = true;
+
+    [Header("Movimiento")]
+    [SerializeField] private float velocidadMovimiento = 6f;
+
+    [Header("Salto")]
+    [SerializeField] private float fuerzaSalto = 6f;
+
+    [Header("Detección de Suelo")]
+    [SerializeField] private LayerMask capaSuelo;
+    [SerializeField] private Transform controladorSuelo;
+    [SerializeField] private Vector2 dimensionesCaja = new Vector2(0.5f, 0.2f);
+    private bool enSuelo;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb2D = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        float direccionX = Input.GetAxisRaw("Horizontal");
-        movimiento = new Vector2(direccionX, 0f);
+        // Verificar si está en el suelo usando una caja de colisión
+        enSuelo = Physics2D.OverlapBox(controladorSuelo.position, dimensionesCaja, 0f, capaSuelo);
 
-        if (Input.GetKeyDown(KeyCode.Space) && rb != null && Mathf.Abs(rb.linearVelocity.y) < 0.01f)
-        {
-            Saltar();
-        }
-
-        AjustarMovimiento(direccionX);
+        // Ajustar la orientación del personaje
+        AjustarRotacion(direccion.x);
     }
 
     private void FixedUpdate()
     {
-        if (rb != null)
-        {
-            rb.linearVelocity = new Vector2(movimiento.x * velocidad, rb.linearVelocity.y);
-        }
+        // Aplicar velocidad horizontal conservando la velocidad vertical
+        rb2D.linearVelocity = new Vector2(direccion.x * velocidadMovimiento, rb2D.linearVelocity.y);
     }
 
-    private void AjustarMovimiento(float direccionX)
+    // Callback que Unity llama automáticamente desde PlayerInput
+    public void OnMove(InputValue value)
     {
-        if (direccionX > 0f && !mirandoDerecha)
-        {
-            Girar();
-        }
-        else if (direccionX < 0f && mirandoDerecha)
-        {
-            Girar();
-        }
+        direccion = value.Get<Vector2>();
     }
 
-    private void Saltar()
+    public void OnJump(InputValue value)
     {
-        if (rb != null)
+        if (value.isPressed && enSuelo)
         {
-            rb.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
+            rb2D.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
         }
     }
 
-    private void Girar()
+    private void AjustarRotacion(float direccionX)
+    {
+        if (direccionX > 0 && !mirandoDerecha)
+        {
+            Girando();
+        }
+        else if (direccionX < 0 && mirandoDerecha)
+        {
+            Girando();
+        }
+    }
+
+    private void Girando()
     {
         mirandoDerecha = !mirandoDerecha;
         Vector3 escala = transform.localScale;
         escala.x *= -1;
         transform.localScale = escala;
     }
+
+    private void OnDrawGizmos()
+    {
+        if (controladorSuelo != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(controladorSuelo.position, dimensionesCaja);
+        }
+    }
 }
+
