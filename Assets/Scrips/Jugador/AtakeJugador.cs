@@ -26,6 +26,7 @@ public class AtakeJugador : MonoBehaviour
     {
         if (value.isPressed)
         {
+            Debug.Log("Botón de ataque presionado"); // Log al presionar el botón
             IntentarAtacar();
         }
     }
@@ -42,6 +43,8 @@ public class AtakeJugador : MonoBehaviour
 
     private void Atacar()
     {
+        Debug.Log("Ejecutando ataque..."); // Log cuando realmente se ejecuta el ataque
+
         // Disparar la animación de ataque
         if (animator != null)
         {
@@ -53,8 +56,15 @@ public class AtakeJugador : MonoBehaviour
 
         foreach (Collider2D objeto in objetosTocados)
         {
-            // Aquí puedes aplicar lógica adicional si quieres afectar otros sistemas.
-            // Por ahora eliminamos toda dependencia de VidaEnemigo.
+            // Aquí podrías aplicar lógica adicional si quieres afectar otros sistemas.
+            // Por ejemplo, dañar enemigos:
+            /*
+            if (objeto.TryGetComponent(out VidaEnemigo vidaEnemigo))
+            {
+                vidaEnemigo.TomarDano(danoAtaque);
+                Debug.Log($"Golpeado: {objeto.name} con {danoAtaque} de daño");
+            }
+            */
         }
     }
 
@@ -67,3 +77,4 @@ public class AtakeJugador : MonoBehaviour
         }
     }
 }
+
