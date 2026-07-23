@@ -2,15 +2,10 @@ using UnityEngine;
 
 public class PauseController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public static bool isGamePaused { get; private set; } = false;
 
-    // Update is called once per frame
-    void Update()
+    public static void SetPause(bool pause)
     {
-        
+        isGamePaused = pause;
     }
 }
