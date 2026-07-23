@@ -26,20 +26,23 @@ public class Movimiento2D : MonoBehaviour
 
     private void Update()
     {
-        // Verificar si está en el suelo usando una caja de colisión
+        if (PauseController.isGamePaused) return;
+
         enSuelo = Physics2D.OverlapBox(controladorSuelo.position, dimensionesCaja, 0f, capaSuelo);
 
-        // Ajustar la orientación del personaje
         AjustarRotacion(direccion.x);
     }
 
     private void FixedUpdate()
     {
-        // Aplicar velocidad horizontal conservando la velocidad vertical
+        if (PauseController.isGamePaused)
+        {
+            rb2D.linearVelocity = Vector2.zero;
+            return;
+        }
+
         rb2D.linearVelocity = new Vector2(direccion.x * velocidadMovimiento, rb2D.linearVelocity.y);
     }
-
-    // Callback que Unity llama automáticamente desde PlayerInput
     public void OnMove(InputValue value)
     {
         direccion = value.Get<Vector2>();
@@ -47,6 +50,8 @@ public class Movimiento2D : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
+        if (PauseController.isGamePaused) return;
+
         if (value.isPressed && enSuelo)
         {
             rb2D.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
@@ -82,4 +87,3 @@ public class Movimiento2D : MonoBehaviour
         }
     }
 }
-
