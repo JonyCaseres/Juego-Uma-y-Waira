@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/menu de inicio.unity
     guid: 50a07c5e9f9bde347a2d1a02d15a8633
   - enabled: 1
+    path: Assets/Scenes/carga.unity
+    guid: d157299d38b947d4ea8929a6f048753c
+  - enabled: 1
     path: Assets/Scenes/Mina.unity
     guid: eaff37dda0485bc44a92f0a5f6bf4ff1
   - enabled: 1

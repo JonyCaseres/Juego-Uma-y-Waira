@@ -494,7 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c2988fbee33ae04db66bb143916f46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Mina
+  sceneName: carga
 --- !u!114 &689975092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1216,7 +1216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c2988fbee33ae04db66bb143916f46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Mina
+  sceneName: carga
 --- !u!1 &1474951090
 GameObject:
   m_ObjectHideFlags: 0
