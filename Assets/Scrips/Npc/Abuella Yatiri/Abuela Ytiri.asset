@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3efd8202c644a644eacc79b093ecbfb4, type: 3}
-  m_Name: New NPC Dialogue
+  m_Name: Abuela Ytiri
   m_EditorClassIdentifier: 
-  NPCname: 
+  NPCname: Abuela Yatiri
   NPCportrait: {fileID: 0}
   dialogueLines:
-  - 
-  - 
-  - 
-  - 
+  - dfdsfdsfdsfsf
+  - 'cocmoa estas '
+  - te devo adasd
   - 
   autoProgressLines: 
   endDialogueLines: 
