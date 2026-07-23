@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27034a71fb2cd064eaf2da2ab1266f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueData: {fileID: 0}
+  dialogueData: {fileID: 11400000, guid: d5968b014ee0d2d45ae45185d2b1da93, type: 2}
 --- !u!70 &6357049
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -302,7 +302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &150650348
 Transform:
   m_ObjectHideFlags: 0
@@ -362,15 +362,15 @@ SpriteRenderer:
   m_SortingLayerID: 1858420157
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7143561463327676622, guid: 0bb7d0bcb5f2d79429d4ba3d22575017, type: 3}
+  m_Sprite: {fileID: 7143561463327676622, guid: 7020d3c368a014040a2f690a3bd63fa1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.34, y: 3.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &512200140
@@ -579,7 +579,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594868274}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21bf0c5a9d250354581db0f8d9f05961, type: 3}
   m_Name: 
@@ -895,7 +895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21af6ebc8bcf240439fe8c0ee013e1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionIcon: {fileID: 0}
+  interactionIcon: {fileID: 150650347}
 --- !u!58 &794814512
 CircleCollider2D:
   m_ObjectHideFlags: 0
