@@ -19,6 +19,10 @@ public class MenuSceneManager : MonoBehaviour
     [SerializeField] private AudioClip menuMusic;
     [SerializeField] [Range(0f, 1f)] private float musicVolume = 1f;
 
+    [Header("Controles de música (botones)")]
+    [SerializeField] private Button pauseButton;
+    [SerializeField] private Button resumeButton;
+
     public event Action<string> OnSceneLoaded;
     public event Action<string> OnSceneUnloaded;
 
@@ -33,6 +37,18 @@ public class MenuSceneManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         SetupMusic();
+    }
+
+    private void OnEnable()
+    {
+        if (pauseButton != null) pauseButton.onClick.AddListener(PauseMusic);
+        if (resumeButton != null) resumeButton.onClick.AddListener(ResumeMusic);
+    }
+
+    private void OnDisable()
+    {
+        if (pauseButton != null) pauseButton.onClick.RemoveListener(PauseMusic);
+        if (resumeButton != null) resumeButton.onClick.RemoveListener(ResumeMusic);
     }
 
     private void SetupMusic()
@@ -140,4 +156,4 @@ public class MenuSceneManager : MonoBehaviour
         if (progressBar != null) progressBar.value = progress01;
         if (progressText != null) progressText.text = $"{Mathf.RoundToInt(progress01 * 100f)}%";
     }
-}
+}       
