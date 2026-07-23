@@ -459,6 +459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 594868275}
+  - component: {fileID: 594868276}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -481,6 +482,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &594868276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594868274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21bf0c5a9d250354581db0f8d9f05961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryPanel: {fileID: 0}
+  slotPrefab: {fileID: 0}
+  slotCount: 16
+  itemPrefabs: []
 --- !u!1 &682615217
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,8 +815,6 @@ GameObject:
   - component: {fileID: 1172429058}
   - component: {fileID: 1172429057}
   - component: {fileID: 1172429061}
-  - component: {fileID: 1172429067}
-  - component: {fileID: 1172429064}
   - component: {fileID: 1172429063}
   - component: {fileID: 1172429062}
   - component: {fileID: 1172429066}
@@ -1017,30 +1032,6 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1172429064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1172429056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 182eb75a1f62a5b4e90067ff69012a9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monedas: 0
-  slots:
-  - item: {fileID: 0}
-    cantidad: 0
-  - item: {fileID: 0}
-    cantidad: 0
-  - item: {fileID: 0}
-    cantidad: 0
-  - item: {fileID: 0}
-    cantidad: 0
-  - item: {fileID: 0}
-    cantidad: 0
 --- !u!114 &1172429066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1053,23 +1044,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e70190490647e6498b5fbaff3a262a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1172429067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1172429056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21bf0c5a9d250354581db0f8d9f05961, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryPanel: {fileID: 0}
-  slotPrefab: {fileID: 3544542584752466975, guid: 12edf6628fa69f840b7dd40ce627ce57, type: 3}
-  slotCount: 16
-  itemPrefabs:
-  - {fileID: 6006550866203042489, guid: 3414a005a1ea8a9438318a4663705b9d, type: 3}
 --- !u!1 &1871983350
 GameObject:
   m_ObjectHideFlags: 0
