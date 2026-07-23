@@ -14,6 +14,11 @@ public class MenuSceneManager : MonoBehaviour
     [SerializeField] private Text progressText;
     [SerializeField] private float minLoadingTime = 0.25f;
 
+    [Header("Música de menú (opcional)")]
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioClip menuMusic;
+    [SerializeField] [Range(0f, 1f)] private float musicVolume = 1f;
+
     public event Action<string> OnSceneLoaded;
     public event Action<string> OnSceneUnloaded;
 
@@ -27,6 +32,34 @@ public class MenuSceneManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        SetupMusic();
+    }
+
+    private void SetupMusic()
+    {
+        if (musicSource == null)
+            musicSource = gameObject.AddComponent<AudioSource>();
+
+        if (menuMusic != null)
+            musicSource.clip = menuMusic;
+
+        musicSource.loop = true;
+        musicSource.volume = musicVolume;
+
+        if (!musicSource.isPlaying)
+            musicSource.Play();
+    }
+
+    public void PauseMusic()
+    {
+        if (musicSource != null && musicSource.isPlaying)
+            musicSource.Pause();
+    }
+
+    public void ResumeMusic()
+    {
+        if (musicSource != null && !musicSource.isPlaying)
+            musicSource.UnPause();
     }
 
     public void Load(string sceneName)

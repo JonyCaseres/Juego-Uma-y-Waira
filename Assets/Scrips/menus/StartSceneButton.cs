@@ -7,22 +7,15 @@ public class StartSceneButton : MonoBehaviour
 
     public void StartGame()
     {
+        if (MenuSceneManager.Instance != null)
+            MenuSceneManager.Instance.PauseMusic();
+
         if (!string.IsNullOrEmpty(sceneName))
         {
-            var managerType = typeof(MenuSceneManager);
-            var managerField = managerType.GetProperty("Instance");
-            if (managerField != null)
+            if (MenuSceneManager.Instance != null)
             {
-                var manager = managerField.GetValue(null, null) as MonoBehaviour;
-                if (manager != null)
-                {
-                    var loadMethod = managerType.GetMethod("Load");
-                    if (loadMethod != null)
-                    {
-                        loadMethod.Invoke(manager, new object[] { sceneName });
-                        return;
-                    }
-                }
+                MenuSceneManager.Instance.Load(sceneName);
+                return;
             }
             SceneManager.LoadScene(sceneName);
             return;
