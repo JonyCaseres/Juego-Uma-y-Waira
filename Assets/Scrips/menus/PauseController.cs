@@ -1,15 +1,25 @@
+using UnityEngine;
 using System;
 
-public static class PauseController
+public class PauseController : MonoBehaviour
 {
-    public static bool isGamePaused { get; private set; }
+    // Variable estática accesible desde cualquier script, pero solo modificable aquí
+    public static bool isGamePaused { get; private set; } = false;
 
     public static event Action<bool> OnPauseChanged;
 
-    public static void SetPaused(bool paused)
+    // Método para activar o desactivar la pausa
+    public static void SetPause(bool pause)
     {
-        if (isGamePaused == paused) return;
-        isGamePaused = paused;
+        SetPaused(pause);
+    }
+
+    public static void SetPaused(bool pause)
+    {
+        if (isGamePaused == pause)
+            return;
+
+        isGamePaused = pause;
         OnPauseChanged?.Invoke(isGamePaused);
     }
 
