@@ -91406,6 +91406,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 12, y: 47, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 19
+      m_TileSpriteIndex: 19
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 18
@@ -91446,7 +91456,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 58d4c3b3939530641b3260458a968495, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 7d7faf46455cf9b45b233ed4db372544, type: 2}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 8074db8b927fd764eb0482ca518a6123, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 7e21e3b8e2ac6ee46b9d9c758a70755e, type: 2}
@@ -91655,7 +91665,7 @@ Tilemap:
     m_Data: {fileID: 1884036924, guid: 38c1884fa5f7b484fb86b9326c8ce7b5, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 987325358, guid: 38c1884fa5f7b484fb86b9326c8ce7b5, type: 3}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 1773708078, guid: 38c1884fa5f7b484fb86b9326c8ce7b5, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1243534843, guid: 38c1884fa5f7b484fb86b9326c8ce7b5, type: 3}
@@ -91826,7 +91836,7 @@ Tilemap:
   - m_RefCount: 33
     m_Data: {fileID: -440320988, guid: 38c1884fa5f7b484fb86b9326c8ce7b5, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 4841
+  - m_RefCount: 4842
     m_Data:
       e00: 1
       e01: 0
@@ -91935,13 +91945,13 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 9106
+  - m_RefCount: 9107
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -210, y: -85, z: 0}
-  m_Size: {x: 350, y: 130, z: 1}
+  m_Size: {x: 350, y: 133, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
