@@ -1,11 +1,20 @@
-using UnityEngine;
+using System;
 
-public class PauseController : MonoBehaviour
+public static class PauseController
 {
-    public static bool isGamePaused { get; private set; } = false;
+    public static bool isGamePaused { get; private set; }
 
-    public static void SetPause(bool pause)
+    public static event Action<bool> OnPauseChanged;
+
+    public static void SetPaused(bool paused)
     {
-        isGamePaused = pause;
+        if (isGamePaused == paused) return;
+        isGamePaused = paused;
+        OnPauseChanged?.Invoke(isGamePaused);
+    }
+
+    public static void Toggle()
+    {
+        SetPaused(!isGamePaused);
     }
 }
