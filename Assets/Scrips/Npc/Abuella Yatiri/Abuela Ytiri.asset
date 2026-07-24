@@ -19,10 +19,19 @@ MonoBehaviour:
   - 'cocmoa estas '
   - te devo adasd
   - 
-  autoProgressLines: 
+  autoProgressLines: 00000000
   endDialogueLines: 
   typingSpeed: 0.05
   autoProgressDelay: 1.5
   voiceSound: {fileID: 0}
   voicePitch: 1
-  choices: []
+  choices:
+  - dialogueIndex: 0
+    choices: []
+    nextDialogueIndexes: 
+  - dialogueIndex: 0
+    choices: []
+    nextDialogueIndexes: 
+  - dialogueIndex: 0
+    choices: []
+    nextDialogueIndexes: 
