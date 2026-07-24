@@ -213,6 +213,8 @@ GameObject:
   - component: {fileID: 8227625306644853149}
   - component: {fileID: 4530687729509329277}
   - component: {fileID: 7562845094771956833}
+  - component: {fileID: 7361189802368344402}
+  - component: {fileID: 2622383697178020915}
   m_Layer: 7
   m_Name: Jugador
   m_TagString: Untagged
@@ -441,3 +443,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLives: 5
+--- !u!114 &7361189802368344402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9219243519146642826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f299b1526e9448744a86706243d48f1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  controladorAtaque: {fileID: 2213697105774625947}
+  radioAtaque: 1
+  danoAtaque: 1
+  tiempoEntreAtaques: 0.5
+  teclaAtaque: 120
+  etiquetaAtacable: Atacable
+  capaAtacable:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!114 &2622383697178020915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9219243519146642826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 182eb75a1f62a5b4e90067ff69012a9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monedas: 10
+  slots: []
