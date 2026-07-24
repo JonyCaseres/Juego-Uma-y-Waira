@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class AtakeJugador : MonoBehaviour
 {
@@ -11,21 +10,24 @@ public class AtakeJugador : MonoBehaviour
     [SerializeField] private float radioAtaque = 1f;
     [SerializeField] private int danoAtaque = 1;
     [SerializeField] private float tiempoEntreAtaques = 0.5f;
-    private float tiempoUltimoAtaque;
+    [SerializeField] private KeyCode teclaAtaque;
+    [SerializeField] private string etiquetaAtacable = "Atacable";
+    [SerializeField] private LayerMask capaAtacable = ~0;
 
-    // Nombre del Trigger en el Animator
+    private float tiempoUltimoAtaque;
     private const string ANIMACION_ATAQUE = "Picar Illa";
 
     private void Start()
     {
-        // Permitir atacar inmediatamente desde el inicio
         tiempoUltimoAtaque = -tiempoEntreAtaques;
+
+        if (controladorAtaque == null)
+            controladorAtaque = transform;
     }
 
-    // Este método será llamado automáticamente por PlayerInput
-    public void OnAttack(InputValue value)
+    private void Update()
     {
-        if (value.isPressed)
+        if (Input.GetKeyDown(teclaAtaque))
         {
             Debug.Log("Botón de ataque presionado");
             IntentarAtacar();
@@ -34,7 +36,6 @@ public class AtakeJugador : MonoBehaviour
 
     private void IntentarAtacar()
     {
-        // Control de tiempo entre ataques
         if (Time.time < tiempoUltimoAtaque + tiempoEntreAtaques)
             return;
 
@@ -44,35 +45,45 @@ public class AtakeJugador : MonoBehaviour
 
     private void Atacar()
     {
-        Debug.Log("Ejecutando Picar Illa...");
+        Debug.Log("Ejecutando ataque...");
 
-        // Reproducir la animación
         if (animator != null)
         {
             animator.SetTrigger(ANIMACION_ATAQUE);
         }
 
-        // Detectar objetos dentro del área de ataque
-        Collider2D[] objetosTocados = Physics2D.OverlapCircleAll(controladorAtaque.position, radioAtaque);
-
-        foreach (Collider2D objeto in objetosTocados)
+        Collider2D[] hits = Physics2D.OverlapCircleAll(controladorAtaque.position, radioAtaque, capaAtacable);
+        foreach (Collider2D hit in hits)
         {
-            /*
-            if (objeto.TryGetComponent(out VidaEnemigo vidaEnemigo))
+            if (!hit.CompareTag(etiquetaAtacable))
+                continue;
+
+            if (hit.TryGetComponent(out Atacable atacable))
             {
-                vidaEnemigo.TomarDano(danoAtaque);
-                Debug.Log($"Golpeado: {objeto.name} con {danoAtaque} de daño");
+                atacable.RecibirGolpe(danoAtaque);
+                Debug.Log($"Golpeado: {hit.name} con {danoAtaque} de daño");
             }
-            */
         }
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
-        if (controladorAtaque != null)
+        if (controladorAtaque == null)
+            controladorAtaque = transform;
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(controladorAtaque.position, radioAtaque);
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(controladorAtaque.position, radioAtaque, capaAtacable);
+        foreach (Collider2D hit in hits)
         {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(controladorAtaque.position, radioAtaque);
+            if (!hit.CompareTag(etiquetaAtacable))
+                continue;
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(controladorAtaque.position, hit.transform.position);
+            Gizmos.DrawWireSphere(hit.transform.position, 0.15f);
         }
     }
 }
+
