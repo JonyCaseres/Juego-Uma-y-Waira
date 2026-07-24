@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nombre: Cobre
   descripcion: 
-  icono: {fileID: 1797414630833537696, guid: cd1cbe393a8155841b9e81c26dd61586, type: 3}
+  icono: {fileID: 4204196871696177309, guid: 9d8866c966c839d4983abba305b6c27f, type: 3}
   cantidadMax: 4

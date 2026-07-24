@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 2622383697178020915}
   m_Layer: 7
   m_Name: Jugador
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -477,5 +477,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182eb75a1f62a5b4e90067ff69012a9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monedas: 10
   slots: []
+  slotSeleccionado: 0
