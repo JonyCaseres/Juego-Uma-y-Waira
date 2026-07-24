@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Interacton
+  - Atacable
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - UI
   - npc
   - Player
-  - 
-  - 
+  - Item
+  - Atacable
   - 
   - 
   - 
