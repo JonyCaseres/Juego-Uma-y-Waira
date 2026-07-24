@@ -19,13 +19,20 @@ public class SpikeDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var target = ResolveTargetGameObject(other);
-        if (target == null) return;
-        if (!target.CompareTag(playerTag)) return;
+        Debug.Log($"Spike OnTriggerEnter2D hit: collider='{other.name}', gameObject='{gameObject.name}'");
+        HandleHitCollider(other);
+    }
 
-        if (IsOnCooldown(target)) return;
-        RegisterHit(target);
-        ApplyDamageToPlayer(target);
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log($"Spike OnCollisionEnter2D hit: collider='{collision.collider.name}', gameObject='{gameObject.name}'");
+        HandleHitGameObject(ResolveTargetGameObject(collision.collider));
+    }
+
+    private void HandleHitCollider(Collider2D other)
+    {
+        var target = ResolveTargetGameObject(other);
+        HandleHitGameObject(target);
     }
 
     private GameObject ResolveTargetGameObject(Collider2D col)
@@ -33,6 +40,21 @@ public class SpikeDamage : MonoBehaviour
         if (col == null) return null;
         if (col.attachedRigidbody != null) return col.attachedRigidbody.gameObject;
         return col.gameObject;
+    }
+
+    private void HandleHitGameObject(GameObject target)
+    {
+        if (target == null) return;
+        Debug.Log($"Spike hit resolved target: '{target.name}', tag='{target.tag}'");
+        if (!target.CompareTag(playerTag))
+        {
+            Debug.Log($"Spike ignored: target tag != '{playerTag}'");
+            return;
+        }
+
+        if (IsOnCooldown(target)) return;
+        RegisterHit(target);
+        ApplyDamageToPlayer(target);
     }
 
     private bool IsOnCooldown(GameObject target)
@@ -49,21 +71,17 @@ public class SpikeDamage : MonoBehaviour
 
     private void ApplyDamageToPlayer(GameObject player)
     {
-        // 1) Actualizar UI simple si existe
-        if (simpleUI != null)
-        {
-            simpleUI.OnDamage(damage);
-        }
+        Debug.Log($"Jugador '{player.name}' recibió {damage} daño por pincho.");
 
-        // 2) Intentar notificar al componente de salud del jugador por reflexión
-        // Buscar componentes mono que puedan manejar daño
+        if (simpleUI != null)
+            simpleUI.OnDamage(damage);
+
         var monos = player.GetComponents<MonoBehaviour>();
         foreach (var mb in monos)
         {
             if (mb == null) continue;
             var type = mb.GetType();
 
-            // métodos comunes a intentar (con y sin parámetro int)
             var methodNames = new[] { "RecibirDaño", "RecibirDanio", "TakeDamage", "ReceiveDamage", "ApplyDamage", "Damage", "Hurt" };
             foreach (var name in methodNames)
             {
@@ -79,12 +97,13 @@ public class SpikeDamage : MonoBehaviour
                     else if (ps.Length == 1 && ps[0].ParameterType == typeof(object))
                         m.Invoke(mb, new object[] { damage });
                 }
-                catch { }
-                // asumo que el componente manejará el daño; no rompo para intentar múltiples
+                catch (Exception ex)
+                {
+                    Debug.LogWarning($"Error invoking {name} on {type.Name}: {ex.Message}");
+                }
             }
         }
 
-        // 3) Si no hay métodos, intentar modificar campos/properties comunes (currentHealth, vida, etc.)
         foreach (var mb in monos)
         {
             if (mb == null) continue;
@@ -111,7 +130,6 @@ public class SpikeDamage : MonoBehaviour
         }
     }
 
-    // Exponer públicamente para daño por script (ejemplo: proyectil)
     public void HitPlayer(GameObject player)
     {
         if (player == null) return;
