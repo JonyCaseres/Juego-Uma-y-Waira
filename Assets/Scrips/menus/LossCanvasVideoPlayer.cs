@@ -39,7 +39,6 @@ public class LossCanvasVideoPlayer : MonoBehaviour
 
     private void OnEnable()
     {
-        // Intentar encontrar y suscribir; si no está, inicia espera
         TrySubscribeToBarra();
     }
 
@@ -52,7 +51,8 @@ public class LossCanvasVideoPlayer : MonoBehaviour
 
     private void TrySubscribeToBarra()
     {
-        barra = FindObjectOfType<BarraCorazones>();
+        // Usar FindFirstObjectByType para evitar el warning deprecado
+        barra = Object.FindFirstObjectByType<BarraCorazones>();
         if (barra != null)
         {
             barra.OnLivesChanged += OnLivesChanged;
@@ -60,7 +60,6 @@ public class LossCanvasVideoPlayer : MonoBehaviour
         }
         else
         {
-            // Barra puede crearse después, esperar un poco
             if (waitForBarraCoroutine == null)
                 waitForBarraCoroutine = StartCoroutine(WaitForBarra());
         }
@@ -72,7 +71,7 @@ public class LossCanvasVideoPlayer : MonoBehaviour
         float t = 0f;
         while (t < timeout)
         {
-            barra = FindObjectOfType<BarraCorazones>();
+            barra = Object.FindFirstObjectByType<BarraCorazones>();
             if (barra != null)
             {
                 barra.OnLivesChanged += OnLivesChanged;

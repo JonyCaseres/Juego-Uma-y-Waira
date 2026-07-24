@@ -27,7 +27,7 @@ public class MenuController : MonoBehaviour
                 menuCanvas.SetActive(!menuCanvas.activeSelf);
                 
                 // Si el menú está abierto se pausa el juego, si está cerrado se despausa
-                PauseController.SetPause(menuCanvas.activeSelf);
+                PauseController.SetPaused(menuCanvas.activeSelf);
             }
         }
     }

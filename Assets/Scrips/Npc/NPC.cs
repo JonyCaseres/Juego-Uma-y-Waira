@@ -37,7 +37,7 @@ public class NPC : MonoBehaviour
 
         dialogueUI.SetNPCInfo(dialogueData.NPCname, dialogueData.NPCportrait);
         dialogueUI.ShowDialogueUI(true);
-        PauseController.SetPause(true);
+        PauseController.SetPaused(true);
 
         DisplayCurrentLine();
     }
@@ -137,6 +137,6 @@ public class NPC : MonoBehaviour
         isDialogueActive = false;
         dialogueUI.SetDialogueText("");
         dialogueUI.ShowDialogueUI(false);
-        PauseController.SetPause(false);
+        PauseController.SetPaused(false);
     }
 }
