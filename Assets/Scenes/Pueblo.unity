@@ -1372,8 +1372,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useSceneName: 1
-  sceneName: Mina
-  sceneBuildIndex: 0
+  sceneName: mina
+  sceneBuildIndex: 2
   requiredTag: Player
   useTrigger: 1
   is2D: 1

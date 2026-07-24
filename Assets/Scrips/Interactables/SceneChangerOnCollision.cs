@@ -3,34 +3,34 @@ using UnityEngine.SceneManagement;
 
 public class SceneChangerOnCollision : MonoBehaviour
 {
-    [Header("Scene to load")]
-    [Tooltip("Si está marcado, se usará Scene Name; si no, se usará Build Index.")]
+    [Header("Destino")]
+    [Tooltip("Usar nombre de escena si está activado; en caso contrario usar build index.")]
     public bool useSceneName = true;
     public string sceneName;
     public int sceneBuildIndex = 0;
 
     [Header("Filtrado")]
-    [Tooltip("Etiqueta del objeto que puede activar el cambio de escena. Dejar vacío para no filtrar.")]
+    [Tooltip("Etiqueta requerida del otro objeto (vacío = no filtrar).")]
     public string requiredTag = "Player";
 
     [Header("Física")]
-    [Tooltip("Marcar si el collider está configurado como Trigger (OnTrigger). Si no, usará OnCollision.")]
+    [Tooltip("Si el collider está como Trigger, activar OnTriggerEnter*; si no, OnCollisionEnter*.")]
     public bool useTrigger = true;
-    [Tooltip("Usar las versiones 2D de los callbacks (OnTriggerEnter2D/OnCollisionEnter2D).")]
+    [Tooltip("Usar callbacks 2D (OnTriggerEnter2D / OnCollisionEnter2D) en lugar de 3D.")]
     public bool is2D = true;
 
     [Header("Opciones")]
     [Tooltip("Cargar la escena de forma asíncrona.")]
     public bool loadAsync = false;
-    [Tooltip("Evitar recargas múltiples tras la primera activación.")]
+    [Tooltip("Si true evita múltiples activaciones.")]
     public bool singleUse = true;
 
-    bool hasActivated = false;
+    private bool hasActivated = false;
 
-    void TryActivate(GameObject other)
+    void TryChangeScene(GameObject other)
     {
         if (hasActivated && singleUse) return;
-        if (!string.IsNullOrEmpty(requiredTag) && other.tag != requiredTag) return;
+        if (!string.IsNullOrEmpty(requiredTag) && other != null && other.tag != requiredTag) return;
 
         if (loadAsync)
         {
@@ -53,24 +53,24 @@ public class SceneChangerOnCollision : MonoBehaviour
     // 3D Trigger
     void OnTriggerEnter(Collider other)
     {
-        if (useTrigger && !is2D) TryActivate(other.gameObject);
+        if (useTrigger && !is2D) TryChangeScene(other.gameObject);
     }
 
     // 3D Collision
     void OnCollisionEnter(Collision collision)
     {
-        if (!useTrigger && !is2D) TryActivate(collision.gameObject);
+        if (!useTrigger && !is2D) TryChangeScene(collision.gameObject);
     }
 
     // 2D Trigger
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (useTrigger && is2D) TryActivate(other.gameObject);
+        if (useTrigger && is2D) TryChangeScene(other.gameObject);
     }
 
     // 2D Collision
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!useTrigger && is2D) TryActivate(collision.gameObject);
+        if (!useTrigger && is2D) TryChangeScene(collision.gameObject);
     }
 }
