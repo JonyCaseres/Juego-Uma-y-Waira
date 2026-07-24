@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum TipoRoca { Blanda, Dura }
 
-public class Roca : MonoBehaviour, IInteractable
+public class Roca : MonoBehaviour
 {
     [Header("Configuración de la roca")]
     public TipoRoca tipo = TipoRoca.Blanda;
@@ -17,13 +17,11 @@ public class Roca : MonoBehaviour, IInteractable
 
     private bool rota = false;
 
-    public bool CanInteract() => !rota;
-
-    public void Interact(GameObject jugador)
+    public void Interact()
     {
         if (rota) return;
 
-        InventarioJugador inv = jugador.GetComponent<InventarioJugador>();
+        InventarioJugador inv = FindObjectOfType<InventarioJugador>();
 
         // Determinar herramienta requerida
         ItemSO requerida = null;

@@ -1,8 +1,4 @@
-using UnityEngine;
-public interface IInteractable
-{
-    bool CanInteract();
-    void Interact(GameObject jugador);
-}
+// Este script ya no es necesario para las interacciones tag-based.
+// Puedes eliminar este archivo si quieres.
 
 

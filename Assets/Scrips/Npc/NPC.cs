@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class NPC : MonoBehaviour, IInteractable
+public class NPC : MonoBehaviour
 {
     public NPCDialogue dialogueData;
 
@@ -15,12 +15,7 @@ public class NPC : MonoBehaviour, IInteractable
         dialogueUI = DialogueController.instance;
     }
 
-    public bool CanInteract()
-    {
-        return !isDialogueActive;
-    }
-
-    public void Interact(GameObject jugador)
+    public void Interact()
     {
         if (dialogueData == null) return;
         if (PauseController.isGamePaused && !isDialogueActive) return;

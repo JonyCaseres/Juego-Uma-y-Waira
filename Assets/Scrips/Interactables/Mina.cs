@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum TipoMina { Pequeña, Mediana, Grande }
 
-public class Mina : MonoBehaviour, IInteractable
+public class Mina : MonoBehaviour
 {
     [Header("Configuración de la mina")]
     public ItemSO mineral;
@@ -23,11 +23,9 @@ public class Mina : MonoBehaviour, IInteractable
         }
     }
 
-    public bool CanInteract() => cantidadTotal > 0 && !isMinando;
-
-    public void Interact(GameObject jugador)
+    public void Interact()
     {
-        if (!CanInteract()) return;
+        if (cantidadTotal <= 0 || isMinando) return;
 
         isMinando = true;
 
@@ -37,7 +35,7 @@ public class Mina : MonoBehaviour, IInteractable
 
         if (cantidadPorInteraccion > 0)
         {
-            InventarioJugador inv = jugador.GetComponent<InventarioJugador>();
+            InventarioJugador inv = FindObjectOfType<InventarioJugador>();
             if (inv != null)
             {
                 inv.AgregarItem(mineral, cantidadPorInteraccion);

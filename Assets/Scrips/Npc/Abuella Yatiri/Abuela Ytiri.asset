@@ -13,25 +13,21 @@ MonoBehaviour:
   m_Name: Abuela Ytiri
   m_EditorClassIdentifier: 
   NPCname: Abuela Yatiri
-  NPCportrait: {fileID: 0}
+  NPCportrait: {fileID: -1834065870448689423, guid: a9768cc9b19ea7149ac5ff7aa17a3df3, type: 3}
   dialogueLines:
   - dfdsfdsfdsfsf
   - 'cocmoa estas '
-  - te devo adasd
-  - 
-  autoProgressLines: 00000000
-  endDialogueLines: 
+  - Me alegro
+  - Pos pena
+  autoProgressLines: 0100
+  endDialogueLines: 00000101
   typingSpeed: 0.05
   autoProgressDelay: 1.5
   voiceSound: {fileID: 0}
   voicePitch: 1
   choices:
-  - dialogueIndex: 0
-    choices: []
-    nextDialogueIndexes: 
-  - dialogueIndex: 0
-    choices: []
-    nextDialogueIndexes: 
-  - dialogueIndex: 0
-    choices: []
-    nextDialogueIndexes: 
+  - dialogueIndex: 1
+    choices:
+    - Bien
+    - Mal
+    nextDialogueIndexes: 0200000003000000
