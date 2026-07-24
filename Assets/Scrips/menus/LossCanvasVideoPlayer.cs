@@ -2,17 +2,28 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public class LossCanvasVideoPlayer : MonoBehaviour
 {
-    [SerializeField] private GameObject lossCanvas;
-    [SerializeField] private RawImage fullScreenRawImage;
+    [Header("UI")]
+    [SerializeField] private GameObject lossCanvas;              // Canvas (puede estar desactivado)
+    [SerializeField] private RawImage fullScreenRawImage;        // RawImage que cubrirá la pantalla
+
+    [Header("Video")]
     [SerializeField] private VideoPlayer videoPlayer;
     [SerializeField] private VideoClip videoClip;
+    [SerializeField] private bool muteVideoAudio = true;
+
+    [Header("Audio (música)")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioClip musicClip;
     [SerializeField] private bool loopMusic = false;
-    [SerializeField] private bool muteVideoAudio = true;
+
+    [Header("Comportamiento")]
+    [SerializeField] private bool loadSceneAfterMedia = false;
+    [SerializeField] private string lossSceneName = "";
+    [SerializeField] private bool autoShowOnZeroLives = true;
 
     private BarraCorazones barra;
     private RenderTexture renderTexture;
@@ -34,6 +45,7 @@ public class LossCanvasVideoPlayer : MonoBehaviour
                 videoPlayer.clip = videoClip;
             }
         }
+
         if (musicSource != null) musicSource.playOnAwake = false;
     }
 
@@ -51,7 +63,6 @@ public class LossCanvasVideoPlayer : MonoBehaviour
 
     private void TrySubscribeToBarra()
     {
-        // Usar FindFirstObjectByType para evitar el warning deprecado
         barra = Object.FindFirstObjectByType<BarraCorazones>();
         if (barra != null)
         {
@@ -97,13 +108,25 @@ public class LossCanvasVideoPlayer : MonoBehaviour
 
     private void OnLivesChanged(int lives, int max)
     {
-        Debug.Log($"Vidas restantes: {lives}/{max}");
+        Debug.Log($"LossCanvasVideoPlayer: Vidas restantes: {lives}/{max}");
+        if (!autoShowOnZeroLives) return;
         if (shown) return;
         if (lives <= 0)
-            StartCoroutine(PlayLossMedia());
+            StartCoroutine(PlayLossMediaAndMaybeLoadScene());
     }
 
-    private IEnumerator PlayLossMedia()
+    public void TriggerLossImmediate(bool loadSceneImmediately = false)
+    {
+        Debug.Log("LossCanvasVideoPlayer: TriggerLossImmediate llamado.");
+        if (loadSceneImmediately && loadSceneAfterMedia && !string.IsNullOrEmpty(lossSceneName))
+        {
+            StartCoroutine(PlayLossMediaAndLoadSceneImmediately());
+            return;
+        }
+        StartCoroutine(PlayLossMediaAndMaybeLoadScene());
+    }
+
+    private IEnumerator PlayLossMediaAndMaybeLoadScene()
     {
         shown = true;
         if (lossCanvas != null) lossCanvas.SetActive(true);
@@ -144,6 +167,64 @@ public class LossCanvasVideoPlayer : MonoBehaviour
             musicSource.Play();
         }
 
+        // Esperar a que termine el vídeo (si hay) o la música; usar tiempo real para evitar problemas con timeScale
+        float wait = 0f;
+        if (videoPlayer != null && videoPlayer.clip != null)
+            wait = (float)videoPlayer.clip.length;
+        else if (musicSource != null && musicSource.clip != null)
+            wait = musicSource.clip.length;
+        else
+            wait = 2f;
+
+        Debug.Log($"LossCanvasVideoPlayer: reproduciendo media. Esperando {wait} segundos (reloj real).");
+        yield return new WaitForSecondsRealtime(wait);
+
+        if (loadSceneAfterMedia && !string.IsNullOrEmpty(lossSceneName))
+        {
+            Debug.Log($"LossCanvasVideoPlayer: cargando escena '{lossSceneName}' tras media.");
+            SceneManager.LoadScene(lossSceneName);
+        }
+    }
+
+    private IEnumerator PlayLossMediaAndLoadSceneImmediately()
+    {
+        // reproduce media y carga escena inmediatamente (sin esperar)
+        shown = true;
+        if (lossCanvas != null) lossCanvas.SetActive(true);
+
+        if (videoPlayer != null)
+        {
+            if (videoPlayer.targetTexture == null)
+            {
+                renderTexture = new RenderTexture(Screen.width, Screen.height, 0);
+                videoPlayer.targetTexture = renderTexture;
+            }
+            if (fullScreenRawImage != null)
+                fullScreenRawImage.texture = videoPlayer.targetTexture;
+            if (muteVideoAudio)
+            {
+                try { videoPlayer.SetDirectAudioMute(0, true); } catch { }
+            }
+            if (!videoPlayer.isPrepared)
+            {
+                videoPlayer.Prepare();
+                while (!videoPlayer.isPrepared) yield return null;
+            }
+            videoPlayer.Play();
+        }
+
+        if (musicSource != null && musicClip != null)
+        {
+            musicSource.clip = musicClip;
+            musicSource.loop = loopMusic;
+            musicSource.Play();
+        }
+
+        if (!string.IsNullOrEmpty(lossSceneName))
+        {
+            Debug.Log($"LossCanvasVideoPlayer: cargando escena '{lossSceneName}' inmediatamente.");
+            SceneManager.LoadScene(lossSceneName);
+        }
         yield break;
     }
 }
