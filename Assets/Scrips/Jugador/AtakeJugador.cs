@@ -13,7 +13,8 @@ public class AtakeJugador : MonoBehaviour
     [SerializeField] private float tiempoEntreAtaques = 0.5f;
     private float tiempoUltimoAtaque;
 
-    private const string ANIMACION_ATAQUE = "atacar";
+    // Nombre del Trigger en el Animator
+    private const string ANIMACION_ATAQUE = "Picar Illa";
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public class AtakeJugador : MonoBehaviour
     {
         if (value.isPressed)
         {
-            Debug.Log("Botón de ataque presionado"); // Log al presionar el botón
+            Debug.Log("Botón de ataque presionado");
             IntentarAtacar();
         }
     }
@@ -43,21 +44,19 @@ public class AtakeJugador : MonoBehaviour
 
     private void Atacar()
     {
-        Debug.Log("Ejecutando ataque..."); // Log cuando realmente se ejecuta el ataque
+        Debug.Log("Ejecutando Picar Illa...");
 
-        // Disparar la animación de ataque
+        // Reproducir la animación
         if (animator != null)
         {
             animator.SetTrigger(ANIMACION_ATAQUE);
         }
 
-        // Detectar colisiones dentro del área circular
+        // Detectar objetos dentro del área de ataque
         Collider2D[] objetosTocados = Physics2D.OverlapCircleAll(controladorAtaque.position, radioAtaque);
 
         foreach (Collider2D objeto in objetosTocados)
         {
-            // Aquí podrías aplicar lógica adicional si quieres afectar otros sistemas.
-            // Por ejemplo, dañar enemigos:
             /*
             if (objeto.TryGetComponent(out VidaEnemigo vidaEnemigo))
             {
@@ -77,4 +76,3 @@ public class AtakeJugador : MonoBehaviour
         }
     }
 }
-

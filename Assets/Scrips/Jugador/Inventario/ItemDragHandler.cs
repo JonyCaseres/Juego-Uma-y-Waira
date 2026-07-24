@@ -52,7 +52,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
 
         Slot originalSlot = originalParent.GetComponent<Slot>();
-
+        /*
         if (dropSlot != null)
         {
             // SI LA CASILLA DESTINO YA TIENE UN ÍTEM (INTERCAMBIO)
@@ -82,6 +82,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
 
         // Centrar el ítem dentro de su casilla final
-        GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        GetComponent<RectTransform>().anchoredPosition = Vector2.zero;}*/
+
     }
 }
