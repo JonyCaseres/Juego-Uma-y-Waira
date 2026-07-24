@@ -19,9 +19,12 @@ public class Movimiento2D : MonoBehaviour
     [SerializeField] private Vector2 dimensionesCaja = new Vector2(0.5f, 0.2f);
     private bool enSuelo;
 
+    private BarraCorazones salud;
+
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        salud = FindFirstObjectByType<BarraCorazones>();
     }
 
     private void Update()
@@ -31,6 +34,11 @@ public class Movimiento2D : MonoBehaviour
         enSuelo = Physics2D.OverlapBox(controladorSuelo.position, dimensionesCaja, 0f, capaSuelo);
 
         AjustarRotacion(direccion.x);
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            salud.RecibirDaño();
+        }
     }
 
     private void FixedUpdate()
@@ -86,4 +94,5 @@ public class Movimiento2D : MonoBehaviour
             Gizmos.DrawWireCube(controladorSuelo.position, dimensionesCaja);
         }
     }
+
 }

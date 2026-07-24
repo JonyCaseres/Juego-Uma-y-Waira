@@ -19,7 +19,12 @@ public class InventarioJugador : MonoBehaviour
     [Header("Economía")]
     public int monedas = 10;
 
-    // Métodos auxiliares para gestionar monedas
+    // Evento que avisará a la UI cuando cambie el inventario
+    public System.Action AlActualizarInventario;
+
+    private const int maxSlots = 5;
+    public List<SlotInventario> slots = new List<SlotInventario>(maxSlots);
+
     public bool PuedePagar(int cantidad)
     {
         return monedas >= cantidad;
@@ -40,9 +45,6 @@ public class InventarioJugador : MonoBehaviour
         monedas += cantidad;
     }
 
-    private const int maxSlots = 5;
-    public List<SlotInventario> slots = new List<SlotInventario>(maxSlots);
-
     public void AgregarItem(ItemSO nuevoItem, int cantidad = 1)
     {
         if (nuevoItem == null) return;
@@ -51,8 +53,13 @@ public class InventarioJugador : MonoBehaviour
 
         if (slotExistente != null)
         {
-            slotExistente.cantidad = Mathf.Min(slotExistente.cantidad + cantidad, nuevoItem.cantidadMax);
+            slotExistente.cantidad = Mathf.Min(
+                slotExistente.cantidad + cantidad,
+                nuevoItem.cantidadMax);
+
             Debug.Log($"Actualizado: {nuevoItem.nombre} x{cantidad}");
+
+            AlActualizarInventario?.Invoke();
             return;
         }
 
@@ -63,7 +70,10 @@ public class InventarioJugador : MonoBehaviour
         }
 
         slots.Add(new SlotInventario(nuevoItem, cantidad));
+
         Debug.Log($"Agregado: {nuevoItem.nombre} x{cantidad}");
+
+        AlActualizarInventario?.Invoke();
     }
 
     public void RemoverItem(ItemSO item, int cantidad = 1)
@@ -73,21 +83,28 @@ public class InventarioJugador : MonoBehaviour
         if (slot != null)
         {
             slot.cantidad -= cantidad;
+
             if (slot.cantidad <= 0)
                 slots.Remove(slot);
 
             Debug.Log($"Removido: {item.nombre} x{cantidad}");
+
+            AlActualizarInventario?.Invoke();
         }
     }
 
     public bool TieneItem(ItemSO item)
     {
         if (item == null) return false;
+
         foreach (var s in slots)
         {
-            if (s.item == item && s.cantidad > 0) return true;
+            if (s.item == item && s.cantidad > 0)
+                return true;
         }
+
         return false;
     }
 }
+
 
