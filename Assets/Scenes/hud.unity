@@ -441,10 +441,13 @@ MonoBehaviour:
   fullScreenRawImage: {fileID: 8440259672135873905}
   videoPlayer: {fileID: 8030860058797587439}
   videoClip: {fileID: 0}
+  muteVideoAudio: 1
   musicSource: {fileID: 2423442758301766409}
   musicClip: {fileID: 8300000, guid: 7296b618784bc654f956c2587e92c9d5, type: 3}
   loopMusic: 0
-  muteVideoAudio: 1
+  loadSceneAfterMedia: 0
+  lossSceneName: 
+  autoShowOnZeroLives: 1
 --- !u!4 &1696772379
 Transform:
   m_ObjectHideFlags: 0
@@ -1100,9 +1103,9 @@ SceneRoots:
   - {fileID: 743621197}
   - {fileID: 1576272106279562674}
   - {fileID: 2008262690}
-  - {fileID: 1886229271}
   - {fileID: 2134164105}
   - {fileID: 2940537116205969090}
   - {fileID: 838293642263684565}
   - {fileID: 277012249}
   - {fileID: 1696772379}
+  - {fileID: 1886229271}

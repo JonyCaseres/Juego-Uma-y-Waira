@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SimpleDamageUI : MonoBehaviour
 {
-    [Tooltip("Arrastra los GameObjects que tienen SpriteRenderer (cada cuadrito).")]
-    [SerializeField] private List<SpriteRenderer> slots = new List<SpriteRenderer>(5);
+    [Tooltip("Arrastra los GameObjects que tienen Image (cada cuadrito).")]
+    [SerializeField] private List<Image> slots = new List<Image>(5);
 
     private int current;
 
